@@ -99,7 +99,7 @@
 - 生成第一个大于 a 的满足 2 ^ n 的数
 -- 在 HashMap 中我们需要生成一个 Hash 桶，用来存储键值对（或者说存储链表），当我们查询一个 key 的时候，会计算出这个 key 的 hashCode，然后根据这个 hashCode 来计算出这个 key 在 hash 桶中的落点，由于上面介绍的使用 & 来取余效率比 / 效率高，所以 HashMap 中根据 hashCode 计算落点使用的是 & 来取余，使用 & 取余有一个局限性就是除数必须是 2 ^ n，所以 hash 桶的 size 必须是 2 ^ n。由于 HashMap 的构造器支持传入一个初始的 hash 桶的 size，所以 HashMap 需要对用户传入的 size 进行处理，生成一个第一个大于 size 的并且满足 2 ^ n 的数。
 -- 一般方法，循环判断
-<p>
+```
 public static final int tableSizeFor(int cap)
 {
     int size = 1;
@@ -109,9 +109,9 @@ public static final int tableSizeFor(int cap)
     }
     return size;
 }
-</p>
+```
 -- | 位运算符
-<p>
+```
 public static final int tableSizeFor(int cap)
 {
     // cap = 3
@@ -127,23 +127,23 @@ public static final int tableSizeFor(int cap)
     n |= n >>> 16;
     return (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
 }
-</p>
+```
 - 求相反数
-<p>
+```
 // a = 3
 // ~a + 1 的二进制表示为；1111 1111 1111 1111 1111 1111 1111 1101
  ~a + 1
-</p>
+```
 - 求绝对值
-<p>a >> 31 == 0 ? a : (~a + 1)</p>
+```a >> 31 == 0 ? a : (~a + 1)```
 
 - 用于消去 a 的最后一位的 1
-<p>
+```
 // a = 1100
 // a - 1 = 1011
 // a & (a - 1) = 1000
 a & (a - 1)
-</p>
+```
 -- 用 O(1) 时间检测整数 n 是否是 2 的幂次
 思路解析：N 如果是 2 的幂次，则 N 满足两个条件。
 1.N > 0
@@ -164,7 +164,7 @@ a & (a - 1)
 如果 S = [1, 2, 3]，有如下的解：
 [ [3], [1], [2], [1, 2, 3], [1, 3], [2, 3], [1, 2] ]
 思路就是使用一个正整数二进制表示的第 i 位是 1 还是 0，代表集合的第 i 个数取或者不取。所以从 0 到 2n - 1 总共 2n 个整数，正好对应集合的 2 ^ n -  1个子集。
-<p>
+```
 int[] s = {1, 2, 3};
 for(int i = 0; i < ( 1 << s.length); i ++)
 {
@@ -177,12 +177,12 @@ for(int i = 0; i < ( 1 << s.length); i ++)
     if(text.length() > 1)
         System.out.println(text.replace(text.length() - 2, text.length(), "]").toString());
 }
-</p>
+```
 
 - 运算符级别
 -- 如果不使用圆括号，就按照给出的运算符优先级次序进行计算。同一个级别的运算符按照从左到右的次序进行计算（除了右结合运算符）
 --- 运算符优先级, 自上到下优先级别依次降低
-<p>
+```
 [] . ()     从左向右
 ! ~ ++ -- +(一元运算符，比如正符号) -(一元运算符，比如负符号) ()(强制类型转换) new      从右向左
 * / %       从左向右
@@ -197,7 +197,7 @@ for(int i = 0; i < ( 1 << s.length); i ++)
 ||          从左向右
 ?:          从左向右
 = += -= *= /= %= &= |= ^= <<= >>= >>>=      从右向左
-</p>
+```
 
 - String
 -- String 就是 Unicode 字符序列
